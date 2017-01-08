@@ -1,0 +1,150 @@
+<div class="alert alert-info">
+
+    <!-- no parent product category -->
+    <a>
+        <span data-ng-click="callProductCategoryNoParent()">Product Category</span>&nbsp;::
+    </a>
+    <!-- end no parent product category -->
+
+    <a data-ng-repeat="product_category in product_category_list">
+        <span data-ng-click="callSubProductCategoryList(product_category, $index)">{{product_category.name}}</span>&nbsp;<i data-ng-hide="$last" class="fa fa-caret-right"></i>
+    </a>
+
+    <div class="pull-right">
+        <!-- add button -->
+        <button type="button" class="btn btn-xs btn-success btn-add" data-ng-click="orderSubList(sub_product_category_list)" data-ng-show="sub_product_category_list">order</button>
+        <!-- add button -->
+        <button type="button" class="btn btn-xs btn-success btn-add" data-ng-click="editSub(null)">add</button>
+    </div>
+
+    <br/>
+
+    <div class="sub-product jumbotron">
+        
+        <ul dnd-list="sub_product_category_list" 
+            class="list" 
+            data-ng-show="sub_product_category_list">
+            <li data-ng-repeat="sub_product_category in sub_product_category_list"
+                dnd-draggable="sub_product_category"
+                dnd-moved="subProductCategoryListMoved(sub_product_category_list, $index)">
+
+                <a data-ng-click="addIntoProductCategoryList(sub_product_category, $index)">{{sub_product_category.name}}</a>&nbsp;&nbsp;
+                <button 
+                    data-ng-click="toggleSubProductCategoryStatus(sub_product_category)"
+                    data-ng-class="{
+                        'btn':true, 
+                        'btn-xs':true, 
+                        'btn-success': sub_product_category.status == 1}">
+                    {{sub_product_category.status == 1? "on" : "off"}}
+                </button>&nbsp;
+                <a data-ng-click="editSub(sub_product_category.id)"><i class="fa fa-wrench" aria-hidden="true"></i></a>&nbsp;
+                <a data-ng-click="delete(sub_product_category.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                <!-- <a>{{sub_product_category.name}}</a>
+
+                <a data-ng-click="editProductCategory(sub_product_category_list.id)"><i class="fa fa-wrench" aria-hidden="true"></i></a>
+
+                <a data-ng-click="deleteProductCategory(sub_product_category_list.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a> -->
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- The actual modal template, just a bit o bootstrap -->
+ <script type="text/ng-template" id="sub-product-category-modal.html">
+     <div class="modal fade">
+      <div class="list modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-ng-click="save(null)" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{id? "Edit": "Add"}} Product category</h4>
+          </div>
+
+          <form name='formField' novalidate>
+
+              <div class="modal-body">
+                <div class="row">
+                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Code</div>
+                            <div class="col-lg-9"><input type="text" data-ng-model="field.code" /></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Name</div>
+                            <div class="col-lg-9"><input type="text" data-ng-model="field.name" required/></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Detail</div>
+                            <div class="col-lg-9"><text-angular data-ng-model="field.detail" ta-toolbar-class="btn-toolbar" ta-toolbar-group-class="btn-group" ta-toolbar-button-class="btn btn-default" ta-toolbar-active-button-class="active"></text-angular></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" data-ng-show="id">
+                        <div class="row">
+                            <div class="col-lg-3">Thumbnail</div>
+                            <div class="col-lg-9">
+                                <img data-ng-src="{{site_url('assets/uploads/productCategory/' + field.thumb)}}" data-ng-show="field.thumb" /><br/>
+                                <input type="hidden" data-ng-model="field.thumb" />
+                                <button type="file" 
+                                    ngf-select="uploadSingleImageFile($file, $invalidFiles, 'field.thumb')"
+                                    ngf-resize="{width: 50, height: 50, centerCrop: true}"
+                                    accept="image/*" ngf-max-size="2MB">
+                                    Select File</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" data-ng-show="id">
+                        <div class="row">
+                            <div class="col-lg-3">Picture</div>
+                            <div class="col-lg-9">
+                                <img data-ng-src="{{site_url('assets/uploads/productCategory/' + field.pic)}}" data-ng-show="field.pic" /><br/>
+                                <input type="hidden" data-ng-model="field.pic" />
+                                <button type="file" 
+                                    ngf-select="uploadSingleImageFile($file, $invalidFiles, 'field.pic')"
+                                    ngf-resize="{width: 300, height: 250, centerCrop: true}"
+                                    accept="image/*" ngf-max-size="2MB">
+                                    Select File</button>
+                    Select File</button></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Status</div>
+                            <div class="col-lg-9">
+
+                                <input type="radio" data-ng-model="field.status" value="1" required />enabled<br/>
+                                <input type="radio" data-ng-model="field.status" value="0" required />disabled
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        {{message}}
+                    </div>
+
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" data-ng-show="formField.$valid" data-dismiss="modal" aria-hidden="true" data-ng-click="save(field)" class="btn btn-primary">save</button>
+              </div>
+
+          </form>
+          
+        </div>
+      </div>
+    </div>
+ </script>

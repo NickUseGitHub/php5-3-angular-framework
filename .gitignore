@@ -1,0 +1,8 @@
+db/
+vendor/
+node_modules/
+
+assets/twig/
+
+#javascript app folder
+app/bower_components

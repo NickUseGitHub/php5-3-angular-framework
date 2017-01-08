@@ -1,0 +1,50 @@
+js:
+  Login:
+    index:
+      # - app/bower_components/jquery/dist/jquery.min.js
+      # - app/bower_components/bootstrap/dist/js/bootstrap.min.js
+      # - app/bower_components/is_js/is.min.js
+      # - app/bower_components/angular/angular.min.js
+      - dist/js/core.js
+      - app/js/Cms/Login/main.js
+      - app/js/ng/service/SessionStorage.js
+      - app/js/ng/service/HttpService.js
+      - app/js/Cms/Login/Controller/Login_Controller.js
+  Home:
+    index:
+      ###dev environment###
+      # - dist/js/core.js
+      # #plugins
+      # - app/bower_components/angular-route/angular-route.min.js
+      # - app/bower_components/angular-cookies/angular-cookies.min.js
+      # - app/bower_components/angular-modal-service/dst/angular-modal-service.js
+      # - app/bower_components/ng-file-upload/ng-file-upload.min.js
+      # - app/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js
+      # - app/bower_components/textAngular/dist/textAngular-rangy.min.js
+      # - app/bower_components/textAngular/dist/textAngular-sanitize.min.js
+      # - app/bower_components/textAngular/dist/textAngular.min.js
+      # - app/bower_components/scriptjs/src/script.js
+      # #textAngular
+      # - app/js/Cms/Admin/main.js
+      # - app/js/ng/service/SessionStorage.js
+      # - app/js/Cms/service/StaffService.js
+      # - app/js/ng/service/HttpService.js
+      ###production environment###
+      - dist/js/core.js
+      - dist/js/Cms/Admin/home.bundle.js
+
+css:
+  Login:
+    index:
+      - app/bower_components/bootstrap/dist/css/bootstrap.min.css
+      - app/bower_components/font-awesome/css/font-awesome.min.css
+      - dist/css/cms/style.css
+      - dist/css/cms/main-style.css
+  Home:
+    index:
+      - app/bower_components/bootstrap/dist/css/bootstrap.min.css
+      - app/bower_components/font-awesome/css/font-awesome.min.css
+      - dist/css/cms/style.css
+      - dist/css/cms/main-style.css
+      - dist/css/cms/admin.css
+      - app/bower_components/textAngular/dist/textAngular.css

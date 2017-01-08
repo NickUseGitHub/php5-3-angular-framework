@@ -1,0 +1,4 @@
+FROM helder/php-5.3
+
+#install mysql extension
+RUN docker-php-ext-install pdo_mysql

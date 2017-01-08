@@ -1,0 +1,28 @@
+{
+    "name": "nick",
+    "description": "nick",
+    "type": "project",
+    "license": "nick",
+    "authors": [
+        {
+            "name": "Nick",
+            "email": "nickt.tnick@gmail.com"
+        }
+    ],
+    "repositories": [
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "phpmailer/phpmailer": "~5.2",
+        "simplon/mysql": "*",
+		"herrera-io/file-locator": "1.0.0",
+		"mauris/yaml": "1.0.*",
+		"twig/twig": "1.25.*"
+    },
+    "autoload": {
+        "psr-4": {
+             "Application\\": "system/"
+        }
+    }
+}

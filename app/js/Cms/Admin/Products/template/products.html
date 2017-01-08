@@ -1,0 +1,225 @@
+<div class="row">
+    <!-- Page Header -->
+    <div class="col-lg-12">
+        <h1 class="page-header">Products</h1>
+    </div>
+    <!--End Page Header -->
+</div>
+
+<!-- breadcump -->
+<div class="row">
+    <div class="col-lg-12">
+        <product-category></product-category>
+    </div>
+</div>
+<!-- end breadcump -->
+
+<!-- table list -->
+<div class="row">
+    <div class="col-lg-12">
+
+        <!--Simple table example -->
+        <div class="list panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-list fa-fw"></i>Products
+                <div class="pull-right" data-ng-show="product_category_id">
+
+                    &nbsp; page(1 - {{total_page}}):
+                    <input class="pagination" type="number" min="1" max="{{total_page}}"  data-ng-model="page" />
+
+                    <!-- size per page -->
+                    <select data-ng-model="amount_per_page" ng-init="amount_per_page='15'">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                    </select>
+                    <!-- end size per page -->
+
+                    <!-- search input -->
+                    <input type="text" data-ng-model="search" placeholder="search" />
+
+                    <!-- filter button -->
+                    <button type="button" class="btn btn-xs btn-success btn-add" data-ng-click="filter()">filter</button>
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <!-- add button -->
+                    <button type="button" 
+                        class="btn btn-xs btn-success btn-order" 
+                        data-ng-click="orderList(list)"
+                        data-ng-show="list">order</button>
+                    <!-- add button -->
+                    <button type="button" 
+                            class="btn btn-xs btn-success btn-add" 
+                            data-ng-click="edit(null)">add</button>
+
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!-- The dnd-list directive allows to drop elements into it.
+     The dropped data will be added to the referenced list -->
+                        <ul dnd-list="list">
+
+                            <li dnd-nodrag>
+
+                                <div class="row">
+                                    
+                                    <div class="col-lg-4">thumb</div>
+                                    <div class="col-lg-3">name</div>
+                                    <div class="col-lg-3">status</div>
+                                    <div class="col-lg-2">tools</div>
+
+                                </div>
+
+                            </li>
+
+                            <!-- The dnd-draggable directive makes an element draggable and will
+                                 transfer the object that was assigned to it. If an element was
+                                 dragged away, you have to remove it from the original list
+                                 yourself using the dnd-moved attribute -->
+                            <li ng-repeat="item in list"
+                                dnd-draggable="item"
+                                dnd-moved="listMoved(list, $index)"
+                                >
+
+                                <div class="row">
+                                    
+                                    <div class="col-lg-4"><img data-ng-src="{{site_url('assets/uploads/product/' + item.thumb)}}" /></div>
+                                    <div class="col-lg-3">{{item.name}}</div>
+                                    <div class="col-lg-3">
+                                        <button 
+                                            data-ng-click="toggleStatus(item)"
+                                            data-ng-class="{
+                                                'btn':true, 
+                                                'btn-xs':true, 
+                                                'btn-success': item.status == 1}">
+                                            {{item.status == 1? "on" : "off"}}
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        
+                                        <a data-ng-click="edit(item.id)"><i class="fa fa-wrench" aria-hidden="true"></i></a>
+
+                                        <a data-ng-click="delete(item.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                    </div>
+
+                                </div>
+
+                            </li>
+                        </ul>
+                    
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!--End simple table example -->
+
+    </div>
+
+</div>
+<!-- end table list -->
+
+<!-- The actual modal template, just a bit o bootstrap -->
+ <script type="text/ng-template" id="product-modal.html">
+     <div class="modal fade">
+      <div class="list modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-ng-click="save(null)" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{id? "Edit": "Add"}} Product</h4>
+          </div>
+
+          <form name='formField' novalidate>
+
+              <div class="modal-body">
+                <div class="row">
+                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Name</div>
+                            <div class="col-lg-9"><input type="text" data-ng-model="field.name" required/></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Price</div>
+                            <div class="col-lg-9"><input type="number" data-ng-model="field.price" required/></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Detail</div>
+                            <div class="col-lg-9"><text-angular data-ng-model="field.detail" ta-toolbar-class="btn-toolbar" ta-toolbar-group-class="btn-group" ta-toolbar-button-class="btn btn-default" ta-toolbar-active-button-class="active"></text-angular></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" data-ng-show="id">
+                        <div class="row">
+                            <div class="col-lg-3">Thumbnail</div>
+                            <div class="col-lg-9">
+                                <img data-ng-src="{{site_url('assets/uploads/product/' + field.thumb)}}" data-ng-show="field.thumb" /><br/>
+                                <input type="hidden" data-ng-model="field.thumb" />
+                                <button type="file" 
+                                    ngf-select="uploadSingleImageFile($file, $invalidFiles, 'field.thumb')"
+                                    ngf-resize="{width: 50, height: 50, centerCrop: true}"
+                                    accept="image/*" ngf-max-size="2MB">
+                                    Select File</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" data-ng-show="id">
+                        <div class="row">
+                            <div class="col-lg-3">Picture</div>
+                            <div class="col-lg-9">
+                                <img data-ng-src="{{site_url('assets/uploads/product/' + field.pic)}}" data-ng-show="field.pic" /><br/>
+                                <input type="hidden" data-ng-model="field.pic" />
+                                <button type="file" 
+                                    ngf-select="uploadSingleImageFile($file, $invalidFiles, 'field.pic')"
+                                    ngf-resize="{width: 300, height: 250, centerCrop: true}"
+                                    accept="image/*" ngf-max-size="2MB">
+                                    Select File</button>
+                    Select File</button></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3">Status</div>
+                            <div class="col-lg-9">
+
+                                <input type="radio" data-ng-model="field.status" value="1" required />enabled<br/>
+                                <input type="radio" data-ng-model="field.status" value="0" required />disabled
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        {{message}}
+                    </div>
+
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" data-ng-show="formField.$valid" data-dismiss="modal" aria-hidden="true" data-ng-click="save(field)" class="btn btn-primary">save</button>
+              </div>
+
+          </form>
+          
+        </div>
+      </div>
+    </div>
+ </script>

@@ -1,0 +1,156 @@
+<div class="row">
+    <!-- Page Header -->
+    <div class="col-lg-12">
+        <h1 class="page-header">Clients</h1>
+    </div>
+    <!--End Page Header -->
+</div>
+
+<!-- breadcump -->
+<div class="row">
+    <div class="col-lg-12">
+    </div>
+</div>
+<!-- end breadcump -->
+
+<!-- table list -->
+<div class="row">
+    <div class="col-lg-12">
+
+        <!--Simple table example -->
+        <div class="list panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-list fa-fw"></i>Clients
+                <div class="pull-right">
+
+                    &nbsp; page(1 - {{total_page}}):
+                    <input class="pagination" type="number" min="1" max="{{total_page}}"  data-ng-model="page" />
+
+                    <!-- size per page -->
+                    <select data-ng-model="amount_per_page" ng-init="amount_per_page='15'">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                    </select>
+                    <!-- end size per page -->
+
+                    <!-- search input -->
+                    <input type="text" data-ng-model="search" placeholder="search" />
+
+                    <!-- filter button -->
+                    <button type="button" class="btn btn-xs btn-success btn-add" data-ng-click="filter()">filter</button>
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <!-- add button -->
+                    <button type="button" 
+                        class="btn btn-xs btn-success btn-order" 
+                        data-ng-click="orderList(list)"
+                        data-ng-show="list && false">order</button>
+
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!-- The dnd-list directive allows to drop elements into it.
+     The dropped data will be added to the referenced list -->
+                        <ul dnd-list="list">
+
+                            <li dnd-nodrag>
+
+                                <div class="row">
+                                    
+                                    <div class="col-lg-6">name</div>
+                                    <div class="col-lg-2">register date</div>
+                                    <div class="col-lg-2">status</div>
+                                    <div class="col-lg-2">tools</div>
+
+                                </div>
+
+                            </li>
+
+                            <!-- The dnd-draggable directive makes an element draggable and will
+                                 transfer the object that was assigned to it. If an element was
+                                 dragged away, you have to remove it from the original list
+                                 yourself using the dnd-moved attribute -->
+                            <li data-ng-repeat="item in list"
+                                dnd-nodrag>
+
+                                <div class="row">
+                                
+                                    <div class="col-lg-6">{{ item.paid_name + ' ' + item.paid_lastname }}</div>
+                                    <div class="col-lg-2">{{item.create_date | dateToISO  | date:'EEE dd MMM yyyy' }}</div>
+                                    <div class="col-lg-2">
+                                        <button 
+                                            data-ng-class="{
+                                                'btn':true, 
+                                                'btn-xs':true,
+                                                'btn-danger': item.status == 0,
+                                                'btn-success': item.status == 1}">
+                                            {{item.status == 1? "registered" : "not register"}}
+                                        </button>    
+                                    </div>
+                                    <div class="col-lg-2"><a data-ng-click="showDetail(item.id)"><i class="fa fa-wrench" aria-hidden="true"></i></a></div>
+
+                                </div>
+
+                            </li>
+                        </ul>
+                    
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!--End simple table example -->
+
+    </div>
+
+</div>
+<!-- end table list -->
+
+<!-- The actual modal template, just a bit o bootstrap -->
+ <script type="text/ng-template" id="client-detail-modal.html">
+     <div class="modal fade">
+      <div class="list modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-ng-hide="true" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Client's detail {{member_id}}</h4>
+          </div>
+
+          <form name='formField' novalidate>
+
+              <div class="modal-body">
+                <div class="row">
+                    
+                    <div class="col-lg-12" data-ng-repeat="(key, value) in details">
+                        <div class="row">
+                            <div class="col-lg-2">{{key}}</div>
+                            <div class="col-lg-10">{{value}}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        {{message}}
+                    </div>
+
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" data-ng-show="formField.$valid" data-dismiss="modal" aria-hidden="true" data-ng-click="ok()" class="btn btn-primary">ok</button>
+              </div>
+
+          </form>
+          
+        </div>
+      </div>
+    </div>
+ </script>

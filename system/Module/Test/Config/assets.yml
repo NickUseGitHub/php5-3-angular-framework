@@ -1,0 +1,15 @@
+js:
+  Design:
+    ngStorage:
+      - assets/dist/js/core.js
+      #ng-libs
+      - assets/bower_components/angular-local-storage/dist/angular-local-storage.min.js
+      #plugins
+      - assets/bower_components/crypto-js/crypto-js.js
+      #main app
+      - assets/js/Front/ngTest/main.js
+      #appService
+      - assets/js/ng/service/appLocalStorage.js
+      
+css:
+  Design:

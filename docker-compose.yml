@@ -1,0 +1,58 @@
+version: "2"
+services:
+  web:
+    container_name: xerox_nginx
+    build:
+      context: ./dockerconf
+      dockerfile: Dockerfile-nginx
+    ports:
+      - 80:80
+    links:
+      - php
+    volumes_from:
+      - app
+
+  php:
+    container_name: xerox_php
+    build:
+      context: ./dockerconf
+      dockerfile: Dockerfile-php
+    expose:
+      - 9000
+    links:
+        - mysql
+    volumes_from:
+      - app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - 8080:80
+    links:
+        - mysql
+    environment:
+        PMA_HOST: mysql
+
+  mysql:
+    image: mysql:latest
+    volumes_from:
+        - data
+    environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: xerox
+        MYSQL_USER: xerox
+        MYSQL_PASSWORD: xerox
+
+  data:
+    image: mysql:latest
+    volumes:
+        - ./db:/var/lib/mysql
+    command: "true"
+
+  app:
+    container_name: xerox_php_file
+    build: 
+      context: ./dockerconf
+      dockerfile: Dockerfile-phpfile
+    volumes:
+        - .:/usr/share/nginx/html

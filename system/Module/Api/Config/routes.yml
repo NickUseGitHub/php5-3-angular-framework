@@ -1,0 +1,27 @@
+routes:
+  POST:
+    #File
+    /\b(canvas)\b\/\b(upload)\b/:
+      controller: File
+      action: saveImageFromCanvas
+    /\b(files)\b\/\b(remove)\b/:
+      controller: File
+      action: removeFiles
+    /\b(files)\b\/\b(uploadPic)\b/:
+      controller: File
+      action: uploadPic
+    #Payment
+    /\b(payment)\b\/\b(confirm)\b/:
+      controller: Payment
+      action: confirm
+    #Kart
+    /\b(kart)\b\/\b(purchase)\b/:
+      controller: Kart
+      action: purchase
+    # customer controller
+    /\b(customer)\b\/\b(getByEmail)\b/:
+      controller: Customer
+      action: getByEmail
+    /\b(test)\b\/(?P<p_id>\d+)/:
+      controller: Test
+      action: index

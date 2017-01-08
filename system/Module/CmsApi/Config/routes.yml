@@ -1,0 +1,116 @@
+routes:
+  GET:
+    /\b([C|c]ategory)\b\/(?P<p_code>\w+)/:
+      controller: Category
+      action: getDataByCode
+    /\b([C|c]ontent)\b\/(?P<p_id>\d+)/:
+      controller: Content
+      action: getData
+  POST:
+    /\b([A|a]dmin)\b\/\b([L|l]ogin)\b/:
+      controller: Admin
+      action: login
+    /\b([A|a]dmin)\b\/\b(pingToken)\b/:
+      controller: Admin
+      action: pingToken
+    /\b([A|a]dmin)\b\/\b(getRoutes)\b/:
+      controller: Admin
+      action: getRoutes
+    /\b([A|a]dmin)\b\/\b(getMenus)\b/:
+      controller: Admin
+      action: getMenus
+    /\b([A|a]dmin)\b\/\b(logout)\b/:
+      controller: Admin
+      action: logout
+    ###Content
+    /\b([C|c]ontent)\b\/(get)/:
+      controller: Content
+      action: get
+    /\b([C|c]ontent)\b\/(?P<p_id>\d+)/:
+      controller: Content
+      action: update
+    /\b([C|c]ontent)\b\/(toggleStatus)/:
+      controller: Content
+      action: toggleStatus
+    /\b([C|c]ontent)\b\/(order)/:
+      controller: Content
+      action: order
+    /\b([C|c]ontent)\b/:
+      controller: Content
+      action: addOrEdit
+    ###Billorders
+    /\b(billorder)\b\/\b(get)\b/:
+      controller: Billorder
+      action: get
+    /\b(billorder)\b\/\b(togglePaidStatus)\b/:
+      controller: Billorder
+      action: togglePaidStatus
+    /\b(billorder)\b\/\b(setShippingStatus)\b/:
+      controller: Billorder
+      action: setShippingStatus
+    /\b(billitems)\b\/\b(get)\b/:
+      controller: Billorder
+      action: getItems
+    ###members
+    /\b(clients)\b\/\b(get)\b/:
+      controller: Client
+      action: get
+    /\b(clients)\b\/\b(getDetail)\b/:
+      controller: Client
+      action: getDetail
+    ###Product Category
+    /\b(ProductCategory)\b\/\b(getDataList)\b/:
+      controller: ProductCategory
+      action: getList
+    /\b(ProductCategory)\b\/\b(toggleStatus)\b/:
+      controller: ProductCategory
+      action: toggleStatus
+    /\b(ProductCategory)\b\/\b(delete)\b/:
+      controller: ProductCategory
+      action: delete
+    /\b(ProductCategory)\b\/(order)/:
+      controller: ProductCategory
+      action: order
+    /\b(ProductCategory)\b\/(getData)/:
+      controller: ProductCategory
+      action: get
+    /\b(ProductCategory)\b\/(createOrUpdate)/:
+      controller: ProductCategory
+      action: addOrEdit
+    ###Product
+    /\b(Product)\b\/(getDataList)/:
+      controller: Product
+      action: getList
+    /\b(Product)\b\/(toggleStatus)/:
+      controller: Product
+      action: toggleStatus
+    /\b(Product)\b\/\b(delete)\b/:
+      controller: Product
+      action: delete
+    /\b(Product)\b\/(order)/:
+      controller: Product
+      action: order
+    /\b(Product)\b\/(getData)/:
+      controller: Product
+      action: get
+    /\b(Product)\b\/(createOrUpdate)/:
+      controller: Product
+      action: addOrEdit
+    /\b(Product)\b\/\b(deleteProductByProductCategoryId)\b/:
+      controller: Product
+      action: deleteProductByProductCategoryId
+    ###File
+    /\b([F|f]ile)\b\/(uploadPic)/:
+      controller: File
+      action: uploadPic
+    /\b([F|f]ile)\b\/(removeFile)/:
+      controller: File
+      action: removeFile
+  DELETE:
+    /\b(Test)\b\/(?P<p_id>\d+)/:
+      controller: Test
+      action: test
+    /\b([C|c]ontent)\b\/(?P<p_id>\d+)/:
+      controller: Content
+      action: delete
+  PUT:

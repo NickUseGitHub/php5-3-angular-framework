@@ -1,0 +1,15 @@
+routes:
+  GET:
+    /\b([L|l]ogin)\b/:
+      controller: Login
+      action: index
+    /\b([C|c]lient)\b\/\b(add)\b/:
+      controller: Client
+      action: add
+    /\//:
+      controller: Home
+      action: index
+  POST:
+    /\b([L|l]ogin)\b/:
+      controller: Login
+      action: login

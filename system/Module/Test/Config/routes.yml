@@ -1,0 +1,8 @@
+routes:
+  GET:
+    /\b(createAdmin)\b/:
+      controller: Test
+      action: createAdmin
+    /\b(index)\b/:
+      controller: Test
+      action: index

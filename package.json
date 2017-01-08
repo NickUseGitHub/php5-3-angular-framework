@@ -1,0 +1,16 @@
+{
+  "name": "xerox",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickUseGitHub/xerox.git"
+  },
+  "author": "Mr. Chaiwat T.",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglifyjs": "^0.6.2",
+    "run-sequence": "^1.2.2"
+  }
+}

@@ -1,0 +1,4 @@
+database:
+  connection:
+    driver: true
+    host: mysql
